@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Saumya & Jai</title>
+<meta property="og:title" content="Saumya & Jai - Save the Date">
+<meta property="og:description" content="14th & 15th February 2027 | Ujjain">
+<meta property="og:image" content="https://saumyaandjai.github.io/savethedate/assets/Preview.PNG">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:url" content="https://saumyaandjai.github.io/savethedate/">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;500;600&family=Great+Vibes&display=swap">
+<style>
+
+:root{
+  --navy:#1B5A7A;--teal:#3A8BA8;--aqua:#7ECEC6;
+  --sage:#5A8A7A;--gold:#A08840;--cream:#E8D8C0;
+  --cream-bg:#F5EBDD;--dark:#1A2A35;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;background:#0A1520}
+
+#root{
+  width:1080px;height:1920px;
+  position:relative;overflow:hidden;
+  transform-origin:0 0;background:#0A1520;
+  opacity:0;transition:opacity .2s;
+}
+
+/* ===== SCREEN 1: VIDEO ===== */
+#s1{
+  position:absolute;inset:0;z-index:100;
+  background:#0A1520;
+  -webkit-user-select:none;user-select:none;touch-action:none;
+}
+#vid{
+  position:absolute;inset:0;width:1080px;height:1920px;
+  object-fit:cover;z-index:101;background:#0A1520;
+}
+#vid.zooming{
+  transition:transform 2s cubic-bezier(.4,0,.2,1),opacity 1.8s ease-in .2s;
+  transform:scale(3.5);opacity:0;pointer-events:none;
+}
+#s1.done{display:none}
+#tap-hint{
+  position:absolute;inset:0;z-index:102;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(10,21,32,.45);cursor:pointer;
+  transition:opacity .4s;
+}
+#tap-hint.hidden{opacity:0;pointer-events:none}
+.tap-icon{
+  width:120px;height:120px;border-radius:50%;
+  border:2px solid rgba(126,206,198,.4);
+  display:flex;align-items:center;justify-content:center;
+  animation:pulse 2.5s ease-in-out infinite;
+}
+.tap-icon::after{
+  content:'';width:0;height:0;margin-left:8px;
+  border-left:32px solid rgba(126,206,198,.7);
+  border-top:20px solid transparent;border-bottom:20px solid transparent;
+}
+@keyframes pulse{
+  0%,100%{transform:scale(1);border-color:rgba(126,206,198,.3)}
+  50%{transform:scale(1.06);border-color:rgba(126,206,198,.6)}
+}
+
+/* ===== CONTENT CONTAINER ===== */
+#content{
+  position:absolute;inset:0;overflow:hidden;
+  scroll-snap-type:y mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+#content.scrollable{overflow-y:scroll}
+
+.screen{
+  width:1080px;height:1920px;
+  position:relative;scroll-snap-align:start;
+  background-color:var(--cream-bg);
+  background-image:url(assets/BackDrop.png);
+  background-size:cover;background-position:center top;
+  background-repeat:no-repeat;overflow:hidden;
+}
+
+/* ===== ARCH PANEL ===== */
+.arch{
+  width:820px;min-height:1480px;
+  border-radius:410px 410px 28px 28px;
+  background:rgba(245,235,221,.38);
+  backdrop-filter:blur(25px);-webkit-backdrop-filter:blur(25px);
+  border:3px solid rgba(160,136,64,.55);
+  box-shadow:0 8px 48px rgba(27,90,122,.06),inset 0 1px 0 rgba(255,255,255,.3),0 0 18px rgba(160,136,64,.15);
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;
+}
+.arch::before{
+  content:'';position:absolute;inset:8px;
+  border-radius:404px 404px 22px 22px;
+  border:1px solid rgba(160,136,64,.3);
+  pointer-events:none;
+}
+
+/* ===== FLOURISH DIVIDER ===== */
+.fl{width:440px;height:auto;display:block;margin:0 auto;opacity:.6}
+.fl path{fill:none;stroke:var(--gold);stroke-width:1.2;stroke-linecap:round}
+.fl .dot{fill:var(--gold);stroke:none}
+.fl-sm{width:230px}
+
+/* ===== SCREEN 2: GRAND REVEAL ===== */
+.s2-wrap{
+  position:relative;z-index:5;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  height:100%;justify-content:flex-start;
+  padding:140px 0 40px;gap:20px;
+}
+.s2-arch{padding:50px 70px 50px;gap:24px;justify-content:center}
+.s2-mono{
+  width:360px;height:auto;border-radius:50%;
+  filter:drop-shadow(0 6px 30px rgba(27,90,122,.2)) drop-shadow(0 2px 6px rgba(160,136,64,.35)) contrast(1.08) saturate(1.15);
+  border:3px solid rgba(160,136,64,.25);
+  box-shadow:0 0 0 8px rgba(245,235,221,.35),0 0 0 12px rgba(160,136,64,.12);
+}
+.s2-intro{
+  font-family:'Cormorant Garamond',Georgia,serif;font-weight: 600;
+  font-size:48px;font-style:italic;
+  color:var(--teal);line-height:1.7;
+}
+.s2-name{
+  font-family:'Great Vibes',cursive;
+  font-size:128px;color:var(--navy);line-height:.95;
+}
+.s2-amp{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-style:italic;font-size:48px;color:var(--teal);
+}
+.s2-quote{
+  font-family:'Cormorant Garamond',Georgia,serif;font-weight: 600;
+  font-size:52px;font-style:italic;
+  color:var(--teal);line-height:1.7;
+  max-width:1000px;padding:0 80px;margin-top:36px;
+}
+
+/* ===== SCREEN 3: FULL DETAILS ===== */
+.s3-wrap{
+  position:relative;z-index:5;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  height:100%;justify-content:flex-start;
+  padding:140px 0 40px;gap:0;
+}
+.s3-arch{padding:70px 60px 50px;gap:20px;justify-content:center}
+.s3-std{
+  font-family:'Cinzel',serif;font-size:52px;font-weight: 600;
+  color:var(--navy);letter-spacing:.1em;
+}
+.s3-std .the{
+  font-family:'Cormorant Garamond',Georgia,serif;font-weight: 600;
+  font-style:italic;color:var(--teal);font-size:1.15em;
+}
+.s3-date{
+  font-family:'Cinzel',serif;font-size:88px;
+  color:var(--navy);line-height:1.1;
+}
+.s3-date sup{font-size:.4em;vertical-align:super}
+.s3-month{
+  font-family:'Cinzel',serif;font-size:36px;font-weight: 400;
+  color:var(--sage);letter-spacing:.2em;
+}
+.s3-loc{
+  font-family:'Cinzel',serif;font-size:40px;font-weight: 600;
+  color:var(--teal);letter-spacing:.3em;
+}
+
+/* Calendar */
+#cal{
+  display:grid;grid-template-columns:repeat(7,1fr);
+  width:520px;margin:0 auto;
+  font-variant-numeric:tabular-nums;
+}
+#cal span{
+  font-family:system-ui,-apple-system,sans-serif;
+  font-size:34px;text-align:center;padding:5px 0;font-weight: 600;color:var(--navy);
+}
+.dh{font-size:18px!important;color:var(--sage)!important;font-weight:600;letter-spacing:.04em}
+.hl{
+  color:#fff!important;
+  width:52px;height:50px;line-height:50px;
+  margin:0 auto;font-weight:600;
+  position:relative;z-index:0;background:none;
+}
+.hl::after{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;
+  background:var(--teal);
+  clip-path:polygon(50% 90%,8% 50%,0% 30%,4% 14%,16% 2%,34% 0%,50% 16%,66% 0%,84% 2%,96% 14%,100% 30%,92% 50%);
+}
+
+/* Countdown */
+#cd{display:flex;gap:36px;justify-content:center}
+.cd-u{text-align:center}
+.cd-n{font-family:'Cinzel',serif;font-size:46px;color:var(--navy);font-weight:500;line-height:1.1}
+.cd-l{font-family:system-ui,-apple-system,sans-serif;font-size:15px;color:var(--sage);letter-spacing:.1em;margin-top:6px}
+
+/* Button */
+.cta{
+  display:inline-block;padding:20px 70px;
+  border:2px solid var(--gold);border-radius:50px;
+  font-family:'Cinzel',serif;font-size:36px;font-weight: 600;
+  color:var(--gold);letter-spacing:.12em;text-decoration:none;
+  transition:background .3s,color .3s;cursor:pointer;
+}
+.cta:active{background:var(--gold);color:#fff}
+
+/* Family */
+.s3-bless{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:48px;font-style:italic;
+  font-weight: 600;
+  color:var(--sage);line-height:1.5;
+  margin-top:24px;
+}
+.s3-fl{font-family:'Cinzel',serif;font-size:32px;font-weight: 600;color:var(--navy);letter-spacing:.15em}
+.s3-fn{font-family:'Great Vibes',cursive;font-weight: 600;font-size:62px;color:var(--gold)}
+.s3-bottom{
+  display:flex;flex-direction:column;align-items:center;
+  gap:14px;margin-top:50px;
+}
+
+/* ===== BUTTERFLIES ===== */
+.bf{position:absolute;pointer-events:none;z-index:10;opacity:0}
+.bf svg{width:100%;height:100%;overflow:visible}
+.wr,.wl{transform-origin:0 0}
+.wr{animation:flap .8s ease-in-out infinite}
+.wl{animation:flap .8s ease-in-out infinite}
+@keyframes flap{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.12)}}
+
+/* Shimmer trail */
+.bf::after{
+  content:'';position:absolute;
+  top:50%;left:50%;width:90px;height:90px;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(ellipse,rgba(160,136,64,.5) 0%,rgba(126,206,198,.3) 35%,rgba(160,136,64,.1) 55%,transparent 75%);
+  filter:blur(8px);border-radius:50%;
+  animation:shimmer 2s ease-in-out infinite;
+}
+.bf::before{
+  content:'';position:absolute;
+  top:50%;left:50%;width:8px;height:8px;
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  background:rgba(160,136,64,.8);
+  box-shadow:
+    -14px 8px 4px rgba(160,136,64,.6),
+    -30px 4px 5px rgba(126,206,198,.5),
+    -48px 12px 6px rgba(160,136,64,.45),
+    -20px -10px 4px rgba(126,206,198,.4),
+    -62px 0px 7px rgba(160,136,64,.3),
+    -40px -6px 5px rgba(160,136,64,.35),
+    -55px 8px 8px rgba(126,206,198,.25);
+  animation:sparkle 1.8s ease-in-out infinite;
+  filter:blur(.5px);
+}
+@keyframes shimmer{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}
+  30%{opacity:1;transform:translate(-50%,-50%) scale(2)}
+  60%{opacity:.6;transform:translate(-50%,-50%) scale(1.2)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(.7)}
+}
+@keyframes sparkle{
+  0%{opacity:0}
+  20%{opacity:1}
+  50%{opacity:.7}
+  80%{opacity:.3}
+  100%{opacity:0}
+}
+
+.bf-1::after{animation-delay:.2s}.bf-1::before{animation-delay:.5s}
+.bf-2::after{animation-delay:1s}.bf-2::before{animation-delay:1.3s}
+.bf-3::after{animation-delay:.6s}.bf-3::before{animation-delay:.9s}
+.bf-4::after{animation-delay:1.5s}.bf-4::before{animation-delay:1.8s}
+.bf-5::after{animation-delay:.4s}.bf-5::before{animation-delay:.7s}
+.bf-6::after{animation-delay:1.2s}.bf-6::before{animation-delay:1.5s}
+
+@keyframes f1{
+  0%{transform:translate(80px,570px) rotate(10deg) scale(.7);opacity:0}
+  8%{opacity:.8}30%{transform:translate(540px,420px) rotate(-6deg) scale(.75)}
+  60%{transform:translate(880px,920px) rotate(14deg) scale(.65)}
+  88%{opacity:.8}100%{transform:translate(200px,1200px) rotate(-4deg) scale(.7);opacity:0}
+}
+@keyframes f2{
+  0%{transform:translate(840px,340px) rotate(-12deg) scale(.55);opacity:0}
+  10%{opacity:.7}40%{transform:translate(370px,800px) rotate(6deg) scale(.6)}
+  70%{transform:translate(120px,1070px) rotate(-9deg) scale(.5)}
+  90%{opacity:.7}100%{transform:translate(700px,420px) rotate(7deg) scale(.55);opacity:0}
+}
+@keyframes f3{
+  0%{transform:translate(520px,1190px) rotate(6deg) scale(.85);opacity:0}
+  6%{opacity:.75}45%{transform:translate(190px,610px) rotate(-14deg) scale(.8)}
+  75%{transform:translate(780px,500px) rotate(9deg) scale(.9)}
+  94%{opacity:.75}100%{transform:translate(450px,1060px) rotate(-6deg) scale(.85);opacity:0}
+}
+@keyframes f4{
+  0%{transform:translate(950px,810px) rotate(-7deg) scale(.6);opacity:0}
+  12%{opacity:.75}50%{transform:translate(300px,540px) rotate(11deg) scale(.65)}
+  80%{transform:translate(630px,1190px) rotate(-8deg) scale(.55)}
+  88%{opacity:.75}100%{transform:translate(880px,730px) rotate(5deg) scale(.6);opacity:0}
+}
+@keyframes f5{
+  0%{transform:translate(50px,920px) rotate(13deg) scale(.72);opacity:0}
+  7%{opacity:.7}50%{transform:translate(730px,610px) rotate(-9deg) scale(.78)}
+  85%{opacity:.7}100%{transform:translate(340px,1110px) rotate(7deg) scale(.72);opacity:0}
+}
+@keyframes f6{
+  0%{transform:translate(670px,1310px) rotate(-5deg) scale(.5);opacity:0}
+  14%{opacity:.72}55%{transform:translate(80px,810px) rotate(10deg) scale(.55)}
+  90%{opacity:.72}100%{transform:translate(560px,540px) rotate(-7deg) scale(.5);opacity:0}
+}
+.bf-1{animation:f1 22s ease-in-out infinite;width:110px;height:86px}
+.bf-2{animation:f2 27s ease-in-out 4s infinite;width:82px;height:64px}
+.bf-3{animation:f3 20s ease-in-out 8s infinite;width:130px;height:100px}
+.bf-4{animation:f4 24s ease-in-out 2s infinite;width:96px;height:76px}
+.bf-5{animation:f5 28s ease-in-out 6s infinite;width:86px;height:68px}
+.bf-6{animation:f6 25s ease-in-out 11s infinite;width:72px;height:58px}
+.bf-1 .wr,.bf-1 .wl{animation-duration:.65s}
+.bf-2 .wr,.bf-2 .wl{animation-duration:.9s}
+.bf-3 .wr,.bf-3 .wl{animation-duration:.55s}
+.bf-4 .wr,.bf-4 .wl{animation-duration:.85s}
+.bf-5 .wr,.bf-5 .wl{animation-duration:.7s}
+.bf-6 .wr,.bf-6 .wl{animation-duration:.95s}
+
+/* ===== ENTRANCE ANIMATIONS ===== */
+.s2-wrap .s2-arch{opacity:0;transform:translateY(30px);transition:opacity .9s ease-out,transform .9s ease-out}
+.s2-wrap .s2-quote{opacity:0;transform:translateY(20px);transition:opacity .7s ease-out .6s,transform .7s ease-out .6s}
+.s2-wrap.revealed .s2-arch{opacity:1;transform:translateY(0)}
+.s2-wrap.revealed .s2-quote{opacity:1;transform:translateY(0)}
+
+.s3-wrap .s3-arch{opacity:0;transform:translateY(30px);transition:opacity .9s ease-out,transform .9s ease-out}
+.s3-wrap .s3-bottom{opacity:0;transform:translateY(20px);transition:opacity .7s ease-out .5s,transform .7s ease-out .5s}
+.s3-wrap.revealed .s3-arch{opacity:1;transform:translateY(0)}
+.s3-wrap.revealed .s3-bottom{opacity:1;transform:translateY(0)}
+
+@media(prefers-reduced-motion:reduce){
+  .bf,.bf::before,.bf::after{display:none}
+  #vid.zooming{transition-duration:.5s}
+  .s2-wrap .s2-arch,.s2-wrap .s2-quote,
+  .s3-wrap .s3-arch,.s3-wrap .s3-bottom{opacity:1;transform:none;transition:none}
+}
+</style>
+</head>
+<body>
+
+<!-- BUTTERFLY SVG TEMPLATE -->
+<template id="bf-tpl">
+<svg viewBox="-56 -44 112 82">
+<g class="wr">
+<path d="M1,-3Q12,-36 44,-26Q54,-10 38,6Q20,14 1,3Z" fill="#1B5A7A" fill-opacity=".7"/>
+<path d="M1,-3Q14,-32 40,-24Q48,-10 34,4Q18,12 1,3Z" fill="#3A8BA8" fill-opacity=".35"/>
+<path d="M20,-22Q28,-18 30,-10" stroke="#A08840" stroke-width=".8" fill="none" opacity=".6"/>
+<path d="M14,-16Q22,-14 26,-8" stroke="#A08840" stroke-width=".6" fill="none" opacity=".5"/>
+<circle cx="24" cy="-16" r="2" fill="#A08840" fill-opacity=".4"/>
+<circle cx="18" cy="-10" r="1.5" fill="#7ECEC6" fill-opacity=".5"/>
+<circle cx="30" cy="-12" r="1.2" fill="#7ECEC6" fill-opacity=".35"/>
+<path d="M1,4Q16,16 24,28Q18,34 8,22Q3,13 1,4Z" fill="#3A8BA8" fill-opacity=".6"/>
+<path d="M1,4Q14,14 20,24Q16,28 7,20Q3,12 1,4Z" fill="#7ECEC6" fill-opacity=".3"/>
+<circle cx="12" cy="16" r="1.2" fill="#A08840" fill-opacity=".45"/>
+</g>
+<g class="wl">
+<path d="M-1,-3Q-12,-36 -44,-26Q-54,-10 -38,6Q-20,14 -1,3Z" fill="#1B5A7A" fill-opacity=".7"/>
+<path d="M-1,-3Q-14,-32 -40,-24Q-48,-10 -34,4Q-18,12 -1,3Z" fill="#3A8BA8" fill-opacity=".35"/>
+<path d="M-20,-22Q-28,-18 -30,-10" stroke="#A08840" stroke-width=".8" fill="none" opacity=".6"/>
+<path d="M-14,-16Q-22,-14 -26,-8" stroke="#A08840" stroke-width=".6" fill="none" opacity=".5"/>
+<circle cx="-24" cy="-16" r="2" fill="#A08840" fill-opacity=".4"/>
+<circle cx="-18" cy="-10" r="1.5" fill="#7ECEC6" fill-opacity=".5"/>
+<circle cx="-30" cy="-12" r="1.2" fill="#7ECEC6" fill-opacity=".35"/>
+<path d="M-1,4Q-16,16 -24,28Q-18,34 -8,22Q-3,13 -1,4Z" fill="#3A8BA8" fill-opacity=".6"/>
+<path d="M-1,4Q-14,14 -20,24Q-16,28 -7,20Q-3,12 -1,4Z" fill="#7ECEC6" fill-opacity=".3"/>
+<circle cx="-12" cy="16" r="1.2" fill="#A08840" fill-opacity=".45"/>
+</g>
+<ellipse cx="0" cy="4" rx="1.8" ry="9" fill="#1A2A35" opacity=".7"/>
+<line x1="0" y1="-4" x2="10" y2="-22" stroke="#1A2A35" stroke-width=".6" opacity=".5"/>
+<line x1="0" y1="-4" x2="-10" y2="-22" stroke="#1A2A35" stroke-width=".6" opacity=".5"/>
+<circle cx="10" cy="-22" r="1" fill="#A08840" opacity=".6"/>
+<circle cx="-10" cy="-22" r="1" fill="#A08840" opacity=".6"/>
+</svg>
+</template>
+
+<!-- ROOT CONTAINER -->
+<div id="root">
+
+<!-- SCREEN 1: VIDEO -->
+<div id="s1">
+  <video id="vid" src="assets/intro%20door%20video.mp4" playsinline webkit-playsinline muted></video>
+  <div id="tap-hint"><div class="tap-icon"></div></div>
+</div>
+
+<!-- SCREENS 2 + 3 -->
+<div id="content">
+
+  <!-- SCREEN 2: GRAND REVEAL -->
+  <section id="s2" class="screen">
+    <div class="bf bf-1"></div><div class="bf bf-2"></div><div class="bf bf-3"></div>
+
+    <div class="s2-wrap" id="s2w">
+      <div class="arch s2-arch">
+        <img class="s2-mono" id="mono-img" src="assets/SJ%20Monogram.png" alt="SJ">
+        <p class="s2-intro">With immense joy and love,<br>we invite you<br>to celebrate the wedding of</p>
+        <svg class="fl fl-sm" viewBox="0 0 400 40" xmlns="http://www.w3.org/2000/svg">
+          <path d="M130,20 Q155,12 170,19"/><path d="M130,20 Q155,28 170,21"/>
+          <path d="M270,20 Q245,12 230,19"/><path d="M270,20 Q245,28 230,21"/>
+          <path d="M170,20 Q185,14 200,18 Q215,14 230,20"/><path d="M170,20 Q185,26 200,22 Q215,26 230,20"/>
+          <circle class="dot" cx="200" cy="20" r="2"/>
+        </svg>
+        <h1 class="s2-name">Saumya</h1>
+        <p class="s2-amp">&</p>
+        <h1 class="s2-name">Jai</h1>
+        <svg class="fl" viewBox="0 0 400 40" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20,20 Q25,10 35,15 Q40,8 50,14 Q55,20 60,18 Q80,10 120,16 Q150,18 170,19"/>
+          <path d="M20,20 Q25,30 35,25 Q40,32 50,26 Q55,20 60,22 Q80,30 120,24 Q150,22 170,21"/>
+          <path d="M380,20 Q375,10 365,15 Q360,8 350,14 Q345,20 340,18 Q320,10 280,16 Q250,18 230,19"/>
+          <path d="M380,20 Q375,30 365,25 Q360,32 350,26 Q345,20 340,22 Q320,30 280,24 Q250,22 230,21"/>
+          <path d="M170,20 Q185,14 200,18 Q215,14 230,20"/><path d="M170,20 Q185,26 200,22 Q215,26 230,20"/>
+          <circle class="dot" cx="200" cy="20" r="2.5"/><circle class="dot" cx="170" cy="20" r="1.8"/><circle class="dot" cx="230" cy="20" r="1.8"/>
+          <circle class="dot" cx="20" cy="20" r="1.5"/><circle class="dot" cx="380" cy="20" r="1.5"/>
+          <circle class="dot" cx="55" cy="14" r="1"/><circle class="dot" cx="345" cy="14" r="1"/>
+        </svg>
+      </div>
+      <p class="s2-quote">Two hearts, one beautiful journey,<br>and a lifetime of togetherness begins.</p>
+    </div>
+  </section>
+
+  <!-- SCREEN 3: FULL DETAILS -->
+  <section id="s3" class="screen">
+    <div class="bf bf-4"></div><div class="bf bf-5"></div><div class="bf bf-6"></div>
+
+    <div class="s3-wrap" id="s3w">
+      <div class="arch s3-arch">
+        <p class="s3-std">Save <span class="the">the</span> Date</p>
+        <svg class="fl" viewBox="0 0 400 40" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20,20 Q25,10 35,15 Q40,8 50,14 Q55,20 60,18 Q80,10 120,16 Q150,18 170,19"/>
+          <path d="M20,20 Q25,30 35,25 Q40,32 50,26 Q55,20 60,22 Q80,30 120,24 Q150,22 170,21"/>
+          <path d="M380,20 Q375,10 365,15 Q360,8 350,14 Q345,20 340,18 Q320,10 280,16 Q250,18 230,19"/>
+          <path d="M380,20 Q375,30 365,25 Q360,32 350,26 Q345,20 340,22 Q320,30 280,24 Q250,22 230,21"/>
+          <path d="M170,20 Q185,14 200,18 Q215,14 230,20"/><path d="M170,20 Q185,26 200,22 Q215,26 230,20"/>
+          <circle class="dot" cx="200" cy="20" r="2.5"/><circle class="dot" cx="170" cy="20" r="1.8"/><circle class="dot" cx="230" cy="20" r="1.8"/>
+          <circle class="dot" cx="20" cy="20" r="1.5"/><circle class="dot" cx="380" cy="20" r="1.5"/>
+          <circle class="dot" cx="55" cy="14" r="1"/><circle class="dot" cx="345" cy="14" r="1"/>
+        </svg>
+        <p class="s3-date">14<sup>th</sup> & 15<sup>th</sup></p>
+        <p class="s3-month">February 2027</p>
+        <p class="s3-loc">Ujjain</p>
+        <svg class="fl fl-sm" viewBox="0 0 400 40" xmlns="http://www.w3.org/2000/svg">
+          <path d="M130,20 Q155,12 170,19"/><path d="M130,20 Q155,28 170,21"/>
+          <path d="M270,20 Q245,12 230,19"/><path d="M270,20 Q245,28 230,21"/>
+          <path d="M170,20 Q185,14 200,18 Q215,14 230,20"/><path d="M170,20 Q185,26 200,22 Q215,26 230,20"/>
+          <circle class="dot" cx="200" cy="20" r="2"/>
+        </svg>
+        <div id="cal"></div>
+        <svg class="fl fl-sm" viewBox="0 0 400 40" xmlns="http://www.w3.org/2000/svg">
+          <path d="M130,20 Q155,12 170,19"/><path d="M130,20 Q155,28 170,21"/>
+          <path d="M270,20 Q245,12 230,19"/><path d="M270,20 Q245,28 230,21"/>
+          <path d="M170,20 Q185,14 200,18 Q215,14 230,20"/><path d="M170,20 Q185,26 200,22 Q215,26 230,20"/>
+          <circle class="dot" cx="200" cy="20" r="2"/>
+        </svg>
+        <div id="cd"></div>
+        <a class="cta" id="cta" target="_blank">Mark Your Calendar</a>
+        <p class="s3-bless">Your presence and blessings will make our celebration truly special.</p>
+      </div>
+      <div class="s3-bottom">
+        <svg class="fl fl-sm" viewBox="0 0 400 40" xmlns="http://www.w3.org/2000/svg">
+          <path d="M130,20 Q155,12 170,19"/><path d="M130,20 Q155,28 170,21"/>
+          <path d="M270,20 Q245,12 230,19"/><path d="M270,20 Q245,28 230,21"/>
+          <path d="M170,20 Q185,14 200,18 Q215,14 230,20"/><path d="M170,20 Q185,26 200,22 Q215,26 230,20"/>
+          <circle class="dot" cx="200" cy="20" r="2"/>
+        </svg>
+        <p class="s3-fl">With Love & Warm Regards</p>
+        <p class="s3-fn">Manish Maloo & Sadhana Maloo</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+</div>
+
+<script>
+(function(){
+  var root=document.getElementById('root');
+  var vid=document.getElementById('vid');
+  var s1=document.getElementById('s1');
+  var tapHint=document.getElementById('tap-hint');
+  var content=document.getElementById('content');
+
+  function fit(){
+    var sx=window.innerWidth/1080;
+    var sy=window.innerHeight/1920;
+    var s=Math.min(sx,sy);
+    if('zoom' in root.style){
+      root.style.zoom=s;
+      root.style.margin='0 auto';
+    }else{
+      root.style.transform='scale('+s+')';
+      root.style.transformOrigin='top left';
+      root.style.marginLeft=((window.innerWidth-1080*s)/2)+'px';
+    }
+  }
+  window.addEventListener('resize',fit);
+  fit();
+  root.style.opacity='1';
+
+  // Inject butterfly SVGs from template
+  var bfTpl=document.getElementById('bf-tpl');
+  var bfs=document.querySelectorAll('.bf');
+  for(var i=0;i<bfs.length;i++){
+    bfs[i].appendChild(bfTpl.content.cloneNode(true));
+  }
+
+  // Video: autoplay or tap to play
+  var started=false;
+  function playVid(){
+    if(started)return;
+    started=true;
+    tapHint.classList.add('hidden');
+    vid.currentTime=0;
+    vid.play().catch(function(){});
+  }
+  vid.addEventListener('canplaythrough',function(){
+    var p=vid.play();
+    if(p&&p.then){
+      p.then(function(){started=true;tapHint.classList.add('hidden')})
+       .catch(function(){});
+    }
+  },{once:true});
+  tapHint.addEventListener('click',playVid);
+  s1.addEventListener('touchstart',playVid,{passive:true});
+
+  vid.addEventListener('ended',function(){
+    s1.style.background='transparent';
+    vid.style.background='transparent';
+    document.getElementById('s2w').classList.add('revealed');
+    vid.classList.add('zooming');
+  });
+  vid.addEventListener('transitionend',function(e){
+    if(e.propertyName==='opacity'&&vid.classList.contains('zooming')){
+      s1.classList.add('done');
+      content.classList.add('scrollable');
+    }
+  });
+
+  // Calendar — February 2027
+  var cal=document.getElementById('cal');
+  var days=['Mo','Tu','We','Th','Fr','Sa','Su'];
+  for(var i=0;i<7;i++){
+    var dh=document.createElement('span');
+    dh.className='dh';dh.textContent=days[i];cal.appendChild(dh);
+  }
+  for(var d=1;d<=28;d++){
+    var sp=document.createElement('span');
+    if(d===14||d===15)sp.className='hl';
+    sp.textContent=d;cal.appendChild(sp);
+  }
+
+  // Countdown to Feb 14, 2027
+  var target=new Date('2027-02-14T00:00:00+05:30').getTime();
+  var cdEl=document.getElementById('cd');
+  function updateCD(){
+    var now=Date.now();var diff=Math.max(0,target-now);
+    var dy=Math.floor(diff/864e5);
+    var hr=Math.floor((diff%864e5)/36e5);
+    var mn=Math.floor((diff%36e5)/6e4);
+    var sc=Math.floor((diff%6e4)/1e3);
+    cdEl.innerHTML=
+      '<div class="cd-u"><div class="cd-n">'+dy+'</div><div class="cd-l">days</div></div>'+
+      '<div class="cd-u"><div class="cd-n">'+hr+'</div><div class="cd-l">hours</div></div>'+
+      '<div class="cd-u"><div class="cd-n">'+mn+'</div><div class="cd-l">mins</div></div>'+
+      '<div class="cd-u"><div class="cd-n">'+sc+'</div><div class="cd-l">secs</div></div>';
+  }
+  updateCD();setInterval(updateCD,1000);
+
+  // Mark Your Calendar — Android opens Google Calendar, iOS generates .ics file
+  var calUrl='https://calendar.google.com/calendar/render?action=TEMPLATE'+
+    '&text=Saumya+%26+Jai+Wedding'+
+    '&dates=20270214/20270216'+
+    '&details=Save+the+Date+for+Saumya+%26+Jai%27s+Wedding+in+Ujjain'+
+    '&location=Ujjain%2C+Madhya+Pradesh%2C+India';
+  var ctaEl=document.getElementById('cta');
+  ctaEl.href=calUrl;
+  ctaEl.addEventListener('click',function(e){
+    var ua=navigator.userAgent;
+    if(/iPad|iPhone|iPod/.test(ua)||(/Macintosh/.test(ua)&&'ontouchend' in document)){
+      e.preventDefault();
+      var ics=[
+        'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//SJ Wedding//EN',
+        'BEGIN:VEVENT',
+        'DTSTART;VALUE=DATE:20270214',
+        'DTEND;VALUE=DATE:20270216',
+        'SUMMARY:Saumya & Jai Wedding',
+        'DESCRIPTION:Save the Date for Saumya & Jai\'s Wedding in Ujjain',
+        'LOCATION:Ujjain\\, Madhya Pradesh\\, India',
+        'END:VEVENT','END:VCALENDAR'
+      ].join('\r\n');
+      var blob=new Blob([ics],{type:'text/calendar'});
+      var url=URL.createObjectURL(blob);
+      window.open(url,'_blank');
+      setTimeout(function(){URL.revokeObjectURL(url)},5000);
+    }
+  });
+
+  // Screen 3 entrance animation
+  var s3w=document.getElementById('s3w');
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){if(en.isIntersecting)s3w.classList.add('revealed')});
+  },{threshold:.1,root:content});
+  obs.observe(document.getElementById('s3'));
+})();
+</script>
+</body>
+</html>
